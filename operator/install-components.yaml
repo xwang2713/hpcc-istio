@@ -1,0 +1,40 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  meshConfig:
+    # Protocol detection timeout is not supported
+    protocolDetectionTimeout: 0s
+    # Locality load balancing is not supported
+    localityLbSetting:
+      enabled: false
+  components:
+    egressGateways:
+    - enabled: false
+      name: istio-egressgateway
+  addonComponents:
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+  values:
+    # Protocol sniffing is not supported
+    pilot:
+      enableProtocolSniffingForOutbound: false
+      enableProtocolSniffingForInbound: false
+    # Enable telemetry v2 backend by Prometheus.
+    telemetry:
+      enabled: true
+      v1:
+        enabled: false
+      v2:
+        enabled: true
+        prometheus:
+          enabled: true
+        stackdriver:
+          enabled: false
+    sidecarInjectorWebhook:
+      rewriteAppHTTPProbe: true
+    global:
+      # Enable permissive mTLS by default
+      mtls:
+        enabled: false
