@@ -11,6 +11,13 @@ To uninstall
 ```sh
 istioctl manifest generate -f install-components.yaml | kubectl delete -f -
 ```
+## Enable istio-inject
+Before start HPCC cluster enabble istio-injection
+```sh
+ kubectl label namespace ${hpcc_namespace} istio-injection=enabled --overwrite
+```
+The default namespace is "default"
+
 
 ## Side car lifecycle issue
 Since default HPCC Systems cloud will use job pod for eclcc, eclagent and thor and job cannot terminate itself due to envoy still running. It is a known issue for any sidecar job pod for current Kubernetes release (1.19).
