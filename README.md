@@ -1,6 +1,10 @@
 # hpcc-istio
 
 ## Install
+Download Istio from https://istio.io/latest/docs/setup/getting-started/#download
+Unpack the file and add <Istio directory>/bin to PATH variable.
+Tested ISTIO release is 1.7.2
+
 This is tested local on Docker Desktop
 
 ```sh
@@ -15,6 +19,10 @@ istioctl manifest generate -f install-components.yaml | kubectl delete -f -
 Before start HPCC cluster enabble istio-injection
 ```sh
  kubectl label namespace ${hpcc_namespace} istio-injection=enabled --overwrite
+```
+To check what is enabled for the namespace
+```sh
+ kubectl label namespace ${hpcc_namespace} --list=true
 ```
 The default namespace is "default"
 
